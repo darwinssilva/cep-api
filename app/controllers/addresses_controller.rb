@@ -1,22 +1,15 @@
+# frozen_string_literal: true
+
+# Controller for handling address lookup by CEP (Brazilian postal code).
 class AddressesController < ApplicationController
   def create
-    cep = address_params[:cep]
+    cep = normalize_cep(address_params[:cep])
 
     return unless valid_cep?(cep)
 
-    @address = Rails.cache.fetch("address:#{cep}", expires_in: 12.hours) do
-      existing_address ||= Address.find_by(cep: cep)
-      return existing_address if existing_address.present?
+    address = FindAddressService.new(cep).call
 
-      new_address = AddressService.new(cep).call
-      new_address&.save ? new_address : nil
-    end
-
-    if @address&.save
-      render json: @address, status: :created
-    else
-      render json: { errors: @address.errors }, status: :unprocessable_entity
-    end
+    render json: address, status: :ok
   rescue StandardError => e
     render json: { error: e.message }, status: :internal_server_error
   end
@@ -25,6 +18,10 @@ class AddressesController < ApplicationController
 
   def address_params
     params.require(:address).permit(:cep)
+  end
+
+  def normalize_cep(cep)
+    cep.gsub(/\D/, '')
   end
 
   def valid_cep?(cep)

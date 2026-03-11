@@ -1,0 +1,18 @@
+Style/Documentation:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/**/*'

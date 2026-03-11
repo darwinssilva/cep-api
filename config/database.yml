@@ -30,6 +30,10 @@ development:
 test:
   <<: *default
   database: cep_api_test
+  username: cep_api
+  password: root
+  host: localhost
+  port: 5433
 
 production:
   <<: *default
