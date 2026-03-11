@@ -4,9 +4,15 @@ class AddressesController < ApplicationController
 
     return unless valid_cep?(cep)
 
-    @address ||= Address.find_by(cep: cep) || AddressService.new(cep).call
+    @address = Rails.cache.fetch("address:#{cep}", expires_in: 12.hours) do
+      existing_address ||= Address.find_by(cep: cep)
+      return existing_address if existing_address.present?
 
-    if @address.save
+      new_address = AddressService.new(cep).call
+      new_address&.save ? new_address : nil
+    end
+
+    if @address&.save
       render json: @address, status: :created
     else
       render json: { errors: @address.errors }, status: :unprocessable_entity
