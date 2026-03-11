@@ -1,0 +1,73 @@
+# Rails
+*.rbc
+capybara-*.html
+.rspec
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3-[0-9]*
+/public/system
+/coverage/
+/spec/tmp
+*.orig
+rerun.txt
+pickle-email-*.html
+
+# Temporários
+.DS_Store
+*.swp
+*~
+.project
+.idea
+.secret
+
+# Log files
+/log/*
+!/log/.keep
+*.log
+
+# Runtime data
+tmp/
+*.pid
+*.seed
+*.pid.lock
+
+# Bootsnap cache (resolve o problema dos arquivos de cache)
+/tmp/cache/bootsnap/*
+
+# Database
+.env
+
+# Bundler
+.bundle
+/vendor/bundle
+
+# Application Specific
+/public/packs
+/public/packs-test
+/public/assets
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# IDE
+.vscode
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Storage uploads
+/storage/*
+!/storage/.keep
+
+# Public uploads
+/public/uploads
